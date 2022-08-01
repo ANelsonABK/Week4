@@ -6,6 +6,7 @@ void FillArray(int* array, size_t arraySize);
 void MergeSort(int* array, int left, int right);
 void Merge(int* arr, int left, int mid, int right);
 void PrintArray(int* arr, size_t arraySize);
+uint32_t GetNanos();
 
 int main()
 {
@@ -22,11 +23,15 @@ int main()
 	std::cout << "Unsorted Array: " << std::endl;
 	PrintArray(array, arraySize);
 
-	// Sort the array
+	// Sort the array using merge sort
+	uint32_t startNanos = GetNanos();
 	MergeSort(array, 0, arraySize - 1);
+	uint32_t endNanos = GetNanos();
 
 	std::cout << "Sorted Array: " << std::endl;
 	PrintArray(array, arraySize);
+
+	std::cout << "Time to sort array: " << (endNanos - startNanos) << "ns." << std::endl;
 
 	// Release the memory
 	delete[] array;
@@ -146,4 +151,11 @@ void PrintArray(int* arr, size_t arraySize)
 		std::cout << arr[i] << " ";
 	}
 	std::cout << std::endl;
+}
+
+uint32_t GetNanos()
+{
+	using namespace std::chrono;
+	return static_cast<uint32_t>(duration_cast<nanoseconds>(system_clock::now().time_since_epoch()).count());
+	//return static_cast<uint32_t>(duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 }
