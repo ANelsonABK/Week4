@@ -9,7 +9,10 @@ class AStar
 	// Maps
 	MinHeap m_openSet;
 
-	typedef std::map<Node*, std::vector<Node>> visited;
+	/*
+	Key is a pointer to a Node object.
+	*/
+	typedef std::map<Node*, Node> visited;
 	visited *m_cameFrom;
 
 public:

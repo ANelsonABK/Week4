@@ -7,6 +7,10 @@ class Node
 
 	int m_xPosition;
 	int m_yPosition;
+
+	/*
+	Key is a pointer to a Node object.
+	*/
 	typedef std::unordered_map<Node*, int> edgemap;
 	
 public:

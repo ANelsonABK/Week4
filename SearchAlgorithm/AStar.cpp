@@ -2,15 +2,15 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <string>
+#include <algorithm>
 
 /*
 Implements the A* search algorithm using pseudocode from Wikipedia.
 */
 AStar::AStar()
-	//:  m_cameFrom(std::map<Node, std::vector<Node>>())
-	//, m_openSet(MinHeap())
 	: m_openSet(MinHeap())
-	, m_cameFrom(new std::map<Node*, std::vector<Node>>())
+	, m_cameFrom(new std::map<Node*, Node>())
 {
 
 }
@@ -26,20 +26,31 @@ Reconstructs the shortest path with the cheapest cost
 void AStar::ReconstructPath(Node currentNode)
 {
 
-	// Find where current node is int visited list
+	Node* curr = (Node*)&currentNode;
 	visited::iterator itr;
-	for (itr = m_cameFrom->begin(); itr != m_cameFrom->end(); itr++)
+	std::vector<std::string> totalPath;
+	std::vector<Node*> keys;
+
+	totalPath.push_back(currentNode.m_val);
+
+	// Get all the keys in the cameFrom map
+	std::transform(
+		std::begin(*m_cameFrom),
+		std::end(*m_cameFrom),
+		std::back_inserter(keys),
+		[](auto const& pair) { return pair.first; });
+
+	//// Get the path from the current node back to the start
+	while (std::find(keys.begin(), keys.end(), curr) != keys.end())
 	{
-		if (itr->first->m_val == currentNode.m_val) {
-			break;
-		}
+		curr = (Node*)&m_cameFrom->find(curr)->first;
+		totalPath.push_back(curr->m_val);
 	}
 
-	// iterate over nodes that were in the path
-	std::vector<Node> path = itr->second;
-	for (int i = 0; i < path.size(); i++)
+	// Print out the path in reverse order
+	for (int i = 0; i < totalPath.size(); i++)
 	{
-		std::cout << path[i].m_val << " ";
+		std::cout << totalPath[i] << "->";
 	}
 
 	std::cout << currentNode.m_val << std::endl;
@@ -89,50 +100,21 @@ void AStar::AStarSearch(Node start, Node goal)
 			return;
 		}
 
+		// Remove the current node from the min heap
 		m_openSet.RemoveMin();
 
 		// Iterate over node's neighbors
 		for (auto& neighbor : currNode.m_edgeMap)
 		{
+			// Get distance from start to neighbor node through current node
 			Node node = *(neighbor.first);
 			node.m_gScore = neighbor.second;
-			// Get distance from start to neighbor node through current node
 			int tentativeGScore = currNode.m_gScore + node.m_gScore;
 
 			if (tentativeGScore <= node.m_gScore)
 			{
 				// Found a better path to neighbor; save it
-				// Get current path to neighbor node if one exists
-				visited::iterator itr;
-				for (itr = m_cameFrom->begin(); itr != m_cameFrom->end(); itr++)
-				{
-					if (itr->first->m_val == node.m_val)
-					{
-						break;
-					}
-				}
-
-				std::vector<Node> nodesVisited;
-				if (itr != m_cameFrom->end())
-				{
-					nodesVisited = itr->second;
-				}
-
-				nodesVisited.push_back(currNode);
-				// TODO: fix issue where map won't update values
-				m_cameFrom->insert_or_assign(&node, nodesVisited);
-				//m_cameFrom.erase(node);
-				//m_cameFrom.insert(
-				//	std::pair<Node, std::vector<Node>>(*node, nodesVisited));
-				//if (m_cameFrom.find(node) == m_cameFrom.end())
-				//{
-				//	m_cameFrom.insert(
-				//		std::pair<Node, std::vector<Node>>(node, nodesVisited));
-				//}
-				//else
-				//{
-				//	m_cameFrom[node] = nodesVisited;
-				//}
+				m_cameFrom->insert_or_assign(&node, currNode);
 
 				// Update the neighbor's scores
 				node.m_gScore = tentativeGScore;
