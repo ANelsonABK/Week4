@@ -2,9 +2,14 @@
 #include <unordered_map>
 #include <string>
 
+/*
+Node class to keep track of nodes in the graph and their edges. The 
+three costs needed for A* search (gScore, hScore, and fScore) are 
+saved to reference and make any updates to anytime in the search.
+*/
 class Node
 {
-
+	// Position of node on the graph
 	int m_xPosition;
 	int m_yPosition;
 

@@ -1,6 +1,12 @@
 #include "AStar.h"
 #include <iostream>
 
+/*
+Main function where the "graph" (nodes and adding edges) is 
+created and an instance of the AStar class. Runs a search 
+of a path from the starting node to the goal node, if there 
+is a path.
+*/
 int main()
 {
 	// Create an instance of AStar
@@ -31,7 +37,8 @@ int main()
 	
 	f.AddEdge((Node*)&g, 1);
 
-	astar.AStarSearch(a, g);
+	// Run A* search
+	astar.AStarSearch(a, c);
 
 	return 0;
 }

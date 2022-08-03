@@ -2,6 +2,16 @@
 #include "Node.h"
 #include <vector>
 
+/*
+A min heap data structure that takes the form of a binary tree. Each 
+node's fScore in the tree is less than or equal to their children's 
+fScore.
+
+This will allow quick access to the current node with the lowest fScore
+for the A* search implementation.
+
+Referenced code from GeeksforGeeks.
+*/
 class MinHeap
 {
 	std::vector<Node> m_heapPtr; // pointer to array of nodes in heap

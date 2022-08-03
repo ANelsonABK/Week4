@@ -45,6 +45,7 @@ void MinHeap::MinHeapify(int idx)
 	int right = FindRight(idx);
 	int smallest = idx;
 
+	// See if the node's children have smaller fScores
 	if (left < m_heapSize
 		&& m_heapPtr[left].m_fScore < m_heapPtr[idx].m_fScore)
 		smallest = idx;
@@ -73,6 +74,7 @@ void MinHeap::RemoveMin()
 		return;
 	}
 
+	// If heap has one node, remove it and return
 	if (m_heapSize == 1)
 	{
 		m_heapSize--;
@@ -99,6 +101,9 @@ void MinHeap::swap(Node* node1, Node* node2)
 	node2 = temp;
 }
 
+/*
+Checks if the node exists in the heap.
+*/
 int MinHeap::FindNode(Node node)
 {
 

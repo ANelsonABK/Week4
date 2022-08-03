@@ -17,11 +17,10 @@ AStar::AStar()
 
 AStar::~AStar()
 {
-	//delete m_cameFrom;
 }
 
 /*
-Reconstructs the shortest path with the cheapest cost
+Reconstructs the shortest path with the cheapest cost.
 */
 void AStar::ReconstructPath(Node currentNode)
 {
@@ -123,9 +122,6 @@ void AStar::AStarSearch(Node start, Node goal)
 				node.m_gScore = tentativeGScore;
 				node.m_hScore = ComputeHeuristic(node, goal);
 				node.m_fScore = node.m_gScore + node.m_hScore;
-
-				// Add updated neighbor back to edge map
-				//currNode.AddEdge((Node*)&node, node.m_gScore);
 
 				// Add neighbor to open set if not already seen
 				if (m_openSet.FindNode(node) == -1)
