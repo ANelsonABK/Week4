@@ -38,7 +38,7 @@ int main()
 	f.AddEdge((Node*)&g, 1);
 
 	// Run A* search
-	astar.AStarSearch(a, c);
+	astar.AStarSearch(a, g);
 
 	return 0;
 }

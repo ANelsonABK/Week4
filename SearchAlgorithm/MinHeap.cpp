@@ -32,7 +32,6 @@ void MinHeap::Insert(Node node)
 		swap(&m_heapPtr[idx], &m_heapPtr[FindParent(idx)]);
 		idx = FindParent(idx);
 	}
-
 }
 
 
@@ -71,24 +70,31 @@ void MinHeap::RemoveMin()
 	// If heap is empty, return
 	if (m_heapSize <= 0)
 	{
+		//return Node(NULL, 0, 0);
 		return;
 	}
+
+	//Node root = m_heapPtr[0];
 
 	// If heap has one node, remove it and return
 	if (m_heapSize == 1)
 	{
+		
 		m_heapSize--;
-		m_heapPtr.pop_back();
+		m_heapPtr.erase(m_heapPtr.end() - 1);
+		//return root;
 		return;
 	}
 
 	// remove root from the heap
 	m_heapPtr[0] = m_heapPtr[m_heapSize - 1];
-	m_heapPtr.pop_back();
+	m_heapPtr.erase(m_heapPtr.end() - 1);
 	m_heapSize--;
 
 	// Fix the heap
 	MinHeapify(0);
+
+	//return root;
 }
 
 /*
@@ -96,9 +102,9 @@ Swap two nodes to keep the minheap intact.
 */
 void MinHeap::swap(Node* node1, Node* node2)
 {
-	Node* temp = node1;
-	node1 = node2;
-	node2 = temp;
+	Node temp = *node1;
+	*node1 = *node2;
+	*node2 = temp;
 }
 
 /*

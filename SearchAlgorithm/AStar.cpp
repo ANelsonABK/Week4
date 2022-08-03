@@ -24,7 +24,6 @@ Reconstructs the shortest path with the cheapest cost.
 */
 void AStar::ReconstructPath(Node currentNode)
 {
-
 	Node* curr = (Node*)&currentNode;
 	visited::iterator itr;
 	std::vector<std::string> totalPath;
@@ -89,6 +88,7 @@ void AStar::AStarSearch(Node start, Node goal)
 
 	while (m_openSet.GetSize() > 0)
 	{
+		// TODO: Check to make sure it gets the correct min cost node
 		// Get current root of openSet
 		Node currNode = m_openSet.GetMin();
 
