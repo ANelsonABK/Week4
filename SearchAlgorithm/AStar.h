@@ -12,13 +12,15 @@ class AStar
 	/*
 	Key is a pointer to a Node object.
 	*/
-	typedef std::map<Node*, Node> visited;
-	visited *m_cameFrom;
+	typedef std::unordered_map<Node*, Node> visited;
+	
 
 public:
 
 	AStar();
 	~AStar();
+
+	visited m_cameFrom;
 
 	int ComputeHeuristic(Node node, Node goal);
 	void ReconstructPath(Node currentNode);

@@ -1,12 +1,14 @@
 #include "Node.h"
+#include <limits>
 
 Node::Node(std::string val, int x, int y)
 	: m_val(val)
 	, m_xPosition(x)
 	, m_yPosition(y)
 	, m_hScore(0)
-	, m_fScore(0)
-	, m_gScore(0)
+	// set default values of fScore and gScore to max value of int
+	, m_fScore(std::numeric_limits<int>::max())
+	, m_gScore(std::numeric_limits<int>::max())
 {
 
 }

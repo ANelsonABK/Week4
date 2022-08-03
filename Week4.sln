@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SortingAlgorithm", "Sorting
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchAlgorithm", "SearchAlgorithm\SearchAlgorithm.vcxproj", "{B3B9EF73-060F-45CC-8547-6EFAC5E0084C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Multithreading", "Multithreading\Multithreading.vcxproj", "{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{B3B9EF73-060F-45CC-8547-6EFAC5E0084C}.Release|x64.Build.0 = Release|x64
 		{B3B9EF73-060F-45CC-8547-6EFAC5E0084C}.Release|x86.ActiveCfg = Release|Win32
 		{B3B9EF73-060F-45CC-8547-6EFAC5E0084C}.Release|x86.Build.0 = Release|Win32
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Debug|x64.ActiveCfg = Debug|x64
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Debug|x64.Build.0 = Debug|x64
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Debug|x86.ActiveCfg = Debug|Win32
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Debug|x86.Build.0 = Debug|Win32
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Release|x64.ActiveCfg = Release|x64
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Release|x64.Build.0 = Release|x64
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Release|x86.ActiveCfg = Release|Win32
+		{BF0D5549-28D4-49E8-89BB-52D3AA992DAA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

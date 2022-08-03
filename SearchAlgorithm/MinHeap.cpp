@@ -65,27 +65,28 @@ void MinHeap::MinHeapify(int idx)
 /*
 Remove the root node from the min heap.
 */
-Node MinHeap::RemoveMin()
+void MinHeap::RemoveMin()
 {
-	// If heap is empty, return null node
+	// If heap is empty, return
 	if (m_heapSize <= 0)
 	{
-		return Node(NULL, 0, 0);
+		return;
 	}
 
 	if (m_heapSize == 1)
 	{
 		m_heapSize--;
-		return m_heapPtr[0];
+		m_heapPtr.pop_back();
+		return;
 	}
 
-	// Store the node with the minimum cost and remove it from the heap
-	Node root = m_heapPtr[0];
+	// remove root from the heap
 	m_heapPtr[0] = m_heapPtr[m_heapSize - 1];
+	m_heapPtr.pop_back();
 	m_heapSize--;
-	MinHeapify(0);
 
-	return root;
+	// Fix the heap
+	MinHeapify(0);
 }
 
 /*

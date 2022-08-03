@@ -19,7 +19,8 @@ public:
 	Node GetMin() { return m_heapPtr[0]; }
 
 	void Insert(Node node);
-	Node RemoveMin();
+	//Node RemoveMin();
+	void RemoveMin();
 	int GetSize() { return m_heapSize; }
 	int FindNode(Node node);
 

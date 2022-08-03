@@ -10,14 +10,14 @@ Implements the A* search algorithm using pseudocode from Wikipedia.
 */
 AStar::AStar()
 	: m_openSet(MinHeap())
-	, m_cameFrom(new std::map<Node*, Node>())
+	, m_cameFrom(std::unordered_map<Node*, Node>())
 {
 
 }
 
 AStar::~AStar()
 {
-	delete m_cameFrom;
+	//delete m_cameFrom;
 }
 
 /*
@@ -35,15 +35,15 @@ void AStar::ReconstructPath(Node currentNode)
 
 	// Get all the keys in the cameFrom map
 	std::transform(
-		std::begin(*m_cameFrom),
-		std::end(*m_cameFrom),
+		std::begin(m_cameFrom),
+		std::end(m_cameFrom),
 		std::back_inserter(keys),
 		[](auto const& pair) { return pair.first; });
 
-	//// Get the path from the current node back to the start
+	// Get the path from the current node back to the start
 	while (std::find(keys.begin(), keys.end(), curr) != keys.end())
 	{
-		curr = (Node*)&m_cameFrom->find(curr)->first;
+		curr = (Node*)&m_cameFrom.find(curr)->second;
 		totalPath.push_back(curr->m_val);
 	}
 
@@ -76,9 +76,6 @@ to the goal node.
 */
 void AStar::AStarSearch(Node start, Node goal)
 {
-	// Add starting node to openSet
-	m_openSet.Insert(start);
-
 	// Set gScore of starting node to 0
 	start.m_gScore = 0;
 
@@ -87,6 +84,9 @@ void AStar::AStarSearch(Node start, Node goal)
 
 	// Compute best guess path cost for starting node
 	start.m_fScore = start.m_gScore + start.m_hScore;
+
+	// Add starting node to openSet
+	m_openSet.Insert(start);
 
 	while (m_openSet.GetSize() > 0)
 	{
@@ -108,24 +108,26 @@ void AStar::AStarSearch(Node start, Node goal)
 		{
 			// Get distance from start to neighbor node through current node
 			Node node = *(neighbor.first);
-			node.m_gScore = neighbor.second;
-			int tentativeGScore = currNode.m_gScore + node.m_gScore;
+			int tentativeGScore = currNode.m_gScore + neighbor.second;
 
-			if (tentativeGScore <= node.m_gScore)
+			if (tentativeGScore < node.m_gScore)
 			{
+				 /* TODO: Fix issue where map does not increase in size
+				    (the one element keeps getting overwritten instead of 
+				    adding a new one) 
+				 */
 				// Found a better path to neighbor; save it
-				m_cameFrom->insert_or_assign(&node, currNode);
+				m_cameFrom.insert(std::pair<Node*, Node>(&node, currNode));
 
 				// Update the neighbor's scores
 				node.m_gScore = tentativeGScore;
 				node.m_hScore = ComputeHeuristic(node, goal);
 				node.m_fScore = node.m_gScore + node.m_hScore;
 
-				//// Add updated neighbor back to edge map
-				currNode.AddEdge((Node*)&node, node.m_gScore);
+				// Add updated neighbor back to edge map
+				//currNode.AddEdge((Node*)&node, node.m_gScore);
 
 				// Add neighbor to open set if not already seen
-				// TODO: see if this needs to be changed
 				if (m_openSet.FindNode(node) == -1)
 				{
 					m_openSet.Insert(node);
