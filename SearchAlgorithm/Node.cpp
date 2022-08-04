@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <limits>
 
-Node::Node(std::string val, int x, int y)
+Node::Node(char val, int x, int y)
 	: m_val(val)
 	, m_xPosition(x)
 	, m_yPosition(y)

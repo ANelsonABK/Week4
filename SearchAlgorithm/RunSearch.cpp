@@ -13,13 +13,13 @@ int main()
 	AStar astar = AStar();
 
 	// Create nodes
-	Node a = Node("a", 0, 0);
-	Node b = Node("b", 0, 0);
-	Node c = Node("c", 0, 0);
-	Node d = Node("d", 0, 0);
-	Node e = Node("e", 0, 0);
-	Node f = Node("f", 0, 0);
-	Node g = Node("g", 0, 0);
+	Node a = Node('a', 0, 0);
+	Node b = Node('b', 0, 0);
+	Node c = Node('c', 0, 0);
+	Node d = Node('d', 0, 0);
+	Node e = Node('e', 0, 0);
+	Node f = Node('f', 0, 0);
+	Node g = Node('g', 0, 0);
 
 	// Add the edges
 	a.AddEdge((Node*)&b, 5);
@@ -38,7 +38,7 @@ int main()
 	f.AddEdge((Node*)&g, 1);
 
 	// Run A* search
-	astar.AStarSearch(a, g);
+	astar.AStarSearch(a, e);
 
 	return 0;
 }

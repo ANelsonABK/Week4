@@ -19,14 +19,14 @@ class Node
 	typedef std::unordered_map<Node*, int> edgemap;
 	
 public:
-	std::string m_val;
+	char m_val;
 	int m_gScore; // the cost from start to node
 	int m_hScore; // the heuristic cost
 	int m_fScore; // the sum of gScore and hScore
 
 	edgemap m_edgeMap;
 
-	Node(std::string val, int x, int y);
+	Node(char val, int x, int y);
 	~Node();
 
 	void AddEdge(Node* node, int cost);

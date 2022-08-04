@@ -10,7 +10,7 @@ Implements the A* search algorithm using pseudocode from Wikipedia.
 */
 AStar::AStar()
 	: m_openSet(MinHeap())
-	, m_cameFrom(std::unordered_map<Node*, Node>())
+	, m_cameFrom(std::unordered_map<char, char>())
 {
 
 }
@@ -24,10 +24,14 @@ Reconstructs the shortest path with the cheapest cost.
 */
 void AStar::ReconstructPath(Node currentNode)
 {
-	Node* curr = (Node*)&currentNode;
+	/*
+	* TODO: Either prints the wrong path/correct answer, 
+	* or correct path/wrong answer.
+	*/
+	char curr = currentNode.m_val;
 	visited::iterator itr;
-	std::vector<std::string> totalPath;
-	std::vector<Node*> keys;
+	std::vector<char> totalPath;
+	std::vector<char> keys;
 
 	totalPath.push_back(currentNode.m_val);
 
@@ -41,12 +45,12 @@ void AStar::ReconstructPath(Node currentNode)
 	// Get the path from the current node back to the start
 	while (std::find(keys.begin(), keys.end(), curr) != keys.end())
 	{
-		curr = (Node*)&m_cameFrom.find(curr)->second;
-		totalPath.push_back(curr->m_val);
+		curr = m_cameFrom.find(curr)->second;
+		totalPath.push_back(curr);
 	}
 
 	// Print out the path in reverse order
-	for (int i = 0; i < totalPath.size(); i++)
+	for (int i = totalPath.size() - 1; i > 0; i--)
 	{
 		std::cout << totalPath[i] << "->";
 	}
@@ -67,6 +71,11 @@ int AStar::ComputeHeuristic(Node node, Node goal)
 
 	return std::sqrt(std::pow(xValue, 2) + std::pow(yValue, 2));
 }
+
+//void AStar::AddToPath(Node neighbor, Node current)
+//{
+//	m_cameFrom[neighbor] = current;
+//}
 
 /*
 Uses the A* search algorithm to find a path from the start node
@@ -111,12 +120,11 @@ void AStar::AStarSearch(Node start, Node goal)
 
 			if (tentativeGScore < node.m_gScore)
 			{
-				 /* TODO: Fix issue where map does not increase in size
-				    (the one element keeps getting overwritten instead of 
-				    adding a new one) 
+				 /* TODO: Fix issue where some node's gScore is the wrong one.
 				 */
 				// Found a better path to neighbor; save it
-				m_cameFrom.insert(std::pair<Node*, Node>(&node, currNode));
+				//AddToPath(node.m_val, currNode.m_val);
+				m_cameFrom[node.m_val] = currNode.m_val;
 
 				// Update the neighbor's scores
 				node.m_gScore = tentativeGScore;
